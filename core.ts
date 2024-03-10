@@ -49,7 +49,7 @@ app.use("/", (req: Request, res: Response) => {
           let code = btoa(data);
           var words = code.split("");
           var ress = words[Math.floor(words.length / 2)];
-          let c = code.split(ress).join(ress + "_Vorterx_");
+          let c = code.split(ress).join(ress + "_G_HOST_");
           await session.sendMessage(session.user.id, {
             text: `${c}`
           });
@@ -59,26 +59,7 @@ app.use("/", (req: Request, res: Response) => {
           ◕ ⚠️ *ᴘʟᴇᴀsᴇ ᴅᴏ ɴᴏᴛ sʜᴀʀᴇ ᴛʜɪs ᴄᴏᴅᴇ ᴡɪᴛʜ ᴀɴʏᴏɴᴇ ᴀs ɪᴛ ᴄᴏɴᴛᴀɪɴs ʀᴇǫᴜɪʀᴇᴅ ᴅᴀᴛᴀ ᴛᴏ ɢᴇᴛ ʏᴏᴜʀ ᴄᴏɴᴛᴀᴄᴛ ᴅᴇᴛᴀɪʟs ᴀɴᴅ ᴀᴄᴄᴇss ʏᴏᴜʀ ᴡʜᴀᴛsᴀᴘᴘ*`
           });
 
-          const files = fs.readdirSync("./session");
-          for (const fileName of files) {
-            const data = fs.readFileSync(`./session/${fileName}`);
-            zip.file(fileName, data);
-          }
-
-          zip.generateNodeStream({ type: "nodebuffer", streamFiles: true })
-        .pipe(createWriteStream("session.zip"))
-        .on("finish", async function () {
-         await session.sendMessage(session.user.id, {
-         document: {
-         url: "./session.zip"
-          },
-          fileName: "session.zip",
-          mimetype: "application/zip",
-         });
-        await fs.rm('./session', {
-        recursive: true,
-        force: true
-        });
+         
          process.send('reset');
          });
          }
